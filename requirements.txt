@@ -1,0 +1,3 @@
+# No external dependencies required.
+# Tkinter is bundled with Python 3.
+# Clipboard support uses macOS built-in pbcopy.
