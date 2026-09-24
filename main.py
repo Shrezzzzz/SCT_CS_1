@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 import subprocess
+import sys
 
 # ─── Colour palette ───────────────────────────────────────────────────────────
 BG        = "#12121a"
@@ -127,13 +128,26 @@ def clear_all():
 
 def copy_result():
     text = result_box.get("1.0", tk.END).strip()
-    if text:
-        try:
+    if not text:
+        return
+    try:
+        if sys.platform == "darwin":
             subprocess.run("pbcopy", input=text.encode(), check=True)
-            copy_btn.config(text="  Copied!")
-            root.after(1500, lambda: copy_btn.config(text="  Copy result"))
-        except Exception:
-            messagebox.showinfo("Copy", text, parent=root)
+        elif sys.platform == "win32":
+            subprocess.run("clip", input=text.encode(), check=True, shell=True)
+        else:
+            # Linux — try xclip, fall back to xsel
+            try:
+                subprocess.run(["xclip", "-selection", "clipboard"],
+                               input=text.encode(), check=True)
+            except FileNotFoundError:
+                subprocess.run(["xsel", "--clipboard", "--input"],
+                               input=text.encode(), check=True)
+        copy_btn.config(text="  Copied!")
+        root.after(1500, lambda: copy_btn.config(text="  Copy result"))
+    except Exception:
+        # Last resort: show text in a dialog so user can copy manually
+        messagebox.showinfo("Copy Result", text, parent=root)
 
 
 # ─── Reusable widget helpers ──────────────────────────────────────────────────

@@ -43,15 +43,15 @@ Where:
 
 - Python 3
 - Tkinter (GUI)
-- subprocess + pbcopy (macOS built-in clipboard support)
+- Clipboard support: `pbcopy` (macOS), `clip` (Windows), `xclip`/`xsel` (Linux) — all built-in, no install needed
 
 ---
 
 ## Requirements
 
-No external dependencies required. Everything used is part of Python's standard library or macOS built-ins.
+No external dependencies. Everything used is part of Python's standard library or OS built-ins.
 
-> Tkinter comes bundled with Python 3 — no separate install needed.
+> Works on macOS, Windows, and Linux.
 
 ---
 
