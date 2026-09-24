@@ -43,19 +43,15 @@ Where:
 
 - Python 3
 - Tkinter (GUI)
-- pyperclip (clipboard support)
+- subprocess + pbcopy (macOS built-in clipboard support)
 
 ---
 
 ## Requirements
 
-Install dependencies:
+No external dependencies required. Everything used is part of Python's standard library or macOS built-ins.
 
-```bash
-pip install pyperclip
-```
-
-> Tkinter comes bundled with Python — no separate install needed.
+> Tkinter comes bundled with Python 3 — no separate install needed.
 
 ---
 
