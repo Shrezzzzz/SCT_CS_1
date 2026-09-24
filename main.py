@@ -126,6 +126,19 @@ def clear_all():
     update_rotor_matrix()
 
 
+def swap():
+    cipher = result_box.get("1.0", "end-1c")
+    if not cipher.strip():
+        return
+    message_entry.delete("1.0", tk.END)
+    message_entry.insert("1.0", cipher)
+    result_box.config(state="normal")
+    result_box.delete("1.0", tk.END)
+    result_box.config(state="disabled")
+    result_status_var.set("")
+    update_char_count()
+
+
 def copy_result():
     text = result_box.get("1.0", tk.END).strip()
     if not text:
@@ -331,6 +344,14 @@ copy_btn.bind("<Button-1>", lambda e: copy_result())
 copy_btn.bind("<Enter>",    lambda e: copy_btn.config(bg="#3a3a4a"))
 copy_btn.bind("<Leave>",    lambda e: copy_btn.config(bg=BORDER))
 copy_btn.pack(side="right")
+
+swap_btn = tk.Label(res_top, text="  Swap to input",
+                    font=("Courier New", 8), fg=FG_DIM, bg=BORDER,
+                    padx=8, pady=2)
+swap_btn.bind("<Button-1>", lambda e: swap())
+swap_btn.bind("<Enter>",    lambda e: swap_btn.config(bg="#3a3a4a"))
+swap_btn.bind("<Leave>",    lambda e: swap_btn.config(bg=BORDER))
+swap_btn.pack(side="right", padx=(0, 6))
 
 result_box = tk.Text(res_panel, height=4, font=("Courier New", 11),
                      bg="#0f0f1a", fg=FG_MONO, relief="flat",
